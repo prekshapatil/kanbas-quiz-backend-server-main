@@ -1,28 +1,39 @@
+import db from "../Database/index.js";
 import * as dao from "./dao.js";
+
 function ModuleRoutes(app) {
-    app.delete("/api/modules/:mid", async (req, res) => {
-        const { mid } = req.params;
-        const status = await dao.deleteModule(mid);
-        res.json(status);
-        });    
+  const getModules = async (req, res) => {
+    const { cid } = req.params;
+    const modules = await dao.findModulesByCourse(cid);
+    res.json(modules);
+  };
 
-    app.get("/api/courses/:cid/modules", async (req, res) => {
-        const { cid } = req.params;
-        const modules = await dao.findAllModulesForCourse(cid);
-        res.send(modules);
-    });
+  const createModule = async (req, res) => {
+    const { cid } = req.params;
+    const newModule = {
+      ...req.body,
+      course: cid,
+      id: new Date().getTime().toString(),
+    };
+    const newM = await dao.createModule(newModule);
+    res.json(newM);
+  };
 
-    app.post("/api/courses/:cid/modules", async (req, res) => {
-        const { cid } = req.params;
-        const newModule = await dao.createModule(cid, req.body);
-        res.send(newModule);
-    });
+  const deleteModule = async (req, res) => {
+    const { mid } = req.params;
+    const status = await dao.deleteModule(mid);
+    res.json(status);
+  };
 
-    app.put("/api/modules/:mid", async (req, res) => {
-        const { mid } = req.params;
-        const module = await dao.updateModule(mid, req.body);
-        res.json(module);
-      });
+  const updateModule = async (req, res) => {
+    const { mid } = req.params;
+    const status = await dao.updateModule(mid, req.body);
+    res.json(status);
+  };
 
+  app.get("/api/courses/:cid/modules", getModules);
+  app.post("/api/courses/:cid/modules", createModule);
+  app.delete("/api/modules/:mid", deleteModule);
+  app.put("/api/modules/:mid", updateModule);
 }
 export default ModuleRoutes;

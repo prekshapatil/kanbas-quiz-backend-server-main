@@ -1,21 +1,39 @@
 {
-  "name": "kanbas-quiz-backend-server",
+  "type": "module",
+  "name": "kanbas-node-server-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js HTTP Web server for the Kanbas application",
+  "main": "App.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node App.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauravtejwani24/kanbas-node-server-app.git"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "Server",
+    "HTTP",
+    "Web",
+    "Development",
+    "CS5610",
+    "CS4550"
+  ],
+  "author": "Tejwani Gaurav",
   "license": "ISC",
-  "type": "module",
+  "bugs": {
+    "url": "https://github.com/gauravtejwani24/kanbas-node-server-app/issues"
+  },
+  "homepage": "https://github.com/gauravtejwani24/kanbas-node-server-app#readme",
   "dependencies": {
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "mongoose": "^8.3.2",
-    "nodemon": "^3.1.0"
+    "mongoose": "^8.3.2"
   }
 }
