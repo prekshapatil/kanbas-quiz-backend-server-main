@@ -16,12 +16,30 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.FRONTEND_URL,
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: process.env.FRONTEND_URL,
+//   })
+// );
+
+const allowedOrigins = [
+  'https://merry-bavarois-7d6051.netlify.app',
+  'https://main--merry-bavarois-7d6051.netlify.app',
+  // ... any other origins you want to allow
+];
+
+app.use(cors({
+  credentials: true,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true); // The origin is allowed
+    } else {
+      callback(new Error('Not allowed by CORS')); // The origin is not allowed
+    }
+  }
+}));
+
 
 const sessionOptions = {
   secret: process.env.SESSION_SECRET,
