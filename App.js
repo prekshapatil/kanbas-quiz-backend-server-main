@@ -24,20 +24,20 @@ const app = express();
 // );
 
 const allowedOrigins = [
-  'https://merry-bavarois-7d6051.netlify.app',
   'https://main--merry-bavarois-7d6051.netlify.app',
-  // ... any other origins you want to allow
+  'https://merry-bavarois-7d6051.netlify.app',
+  // Add other origins as needed
 ];
 
 app.use(cors({
   credentials: true,
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true); // The origin is allowed
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS')); // The origin is not allowed
+      callback(new Error('CORS Error: This origin is not allowed'));
     }
-  }
+  },
 }));
 
 
