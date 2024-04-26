@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true },
@@ -12,7 +13,11 @@ const userSchema = new mongoose.Schema(
       enum: ["STUDENT", "FACULTY", "ADMIN", "USER"],
       default: "USER",
     },
+    registeredCourses: [
+        {type: String, ref: 'CourseModel'}
+    ]
   },
   { collection: "users" }
 );
+
 export default userSchema;

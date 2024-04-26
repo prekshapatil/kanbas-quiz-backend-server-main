@@ -1,13 +1,16 @@
 const assignment = {
-  id: 1, title: "NodeJS Assignment",
+  id: 1,
+  title: "NodeJS Assignment",
   description: "Create a NodeJS server with ExpressJS",
-  due: "2021-10-10", completed: false, score: 0,
+  due: "2021-10-10",
+  completed: false,
+  score: 0,
 };
 
 const module = {
   id: 1,
-  name: "NodeJS",
-  description: "NodeJS is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
+  name: "NodeJS Module",
+  description: "NodeJS with ExpressJS Module",
   course: "CS572",
 };
 
@@ -16,42 +19,40 @@ const todos = [
   { id: 2, title: "Task 2", completed: true },
   { id: 3, title: "Task 3", completed: false },
   { id: 4, title: "Task 4", completed: true },
-  { id: 5, title: "Task 5", completed: false },
-  { id: 6, title: "Task 6", completed: true },
-  { id: 7, title: "Task 7", completed: false },
-  { id: 8, title: "Task 8", completed: true },
-  { id: 9, title: "Task 9", completed: false },
-  { id: 10, title: "Task 10", completed: true },
 ];
 
-const taskCount = 1;
+const newTaskCounter = 1;
 
 const Lab5 = (app) => {
-  app.get("/a5/assignment", (req, res) => {
-    res.json(assignment);
-  });
-  app.get("/a5/assignment/title", (req, res) => {
-    res.json(assignment.title);
-  });
-  app.get("/a5/assignment/title/:newTitle", (req, res) => {
-    const { newTitle } = req.params;
-    assignment.title = newTitle;
-    res.json(assignment);
-  });
 
   app.get("/a5/welcome", (req, res) => {
     res.send("Welcome to Assignment 5");
   });
+
   app.get("/a5/add/:a/:b", (req, res) => {
     const { a, b } = req.params;
     const sum = parseInt(a) + parseInt(b);
     res.send(sum.toString());
   });
+
   app.get("/a5/subtract/:a/:b", (req, res) => {
     const { a, b } = req.params;
     const sum = parseInt(a) - parseInt(b);
     res.send(sum.toString());
   });
+
+  app.get("/a5/multiply/:a/:b", (req, res) => {
+    const { a, b } = req.params;
+    const sum = parseInt(a) * parseInt(b);
+    res.send(sum.toString());
+  });
+
+  app.get("/a5/divide/:a/:b", (req, res) => {
+    const { a, b } = req.params;
+    const sum = parseInt(a) / parseInt(b);
+    res.send(sum.toString());
+  });
+
   app.get("/a5/calculator", (req, res) => {
     const { a, b, operation } = req.query;
     let result = 0;
@@ -72,6 +73,32 @@ const Lab5 = (app) => {
         result = "Invalid operation";
     }
     res.send(result.toString());
+  });
+
+  app.get("/a5/assignment", (req, res) => {
+    res.json(assignment);
+  });
+
+  app.get("/a5/assignment/title", (req, res) => {
+    res.json(assignment.title);
+  });
+
+  app.get("/a5/assignment/title/:newTitle", (req, res) => {
+    const { newTitle } = req.params;
+    assignment.title = newTitle;
+    res.json(assignment);
+  });
+
+  app.get("/a5/assignment/completed/:completestatus", (req, res) => {
+    const { completestatus } = req.params;
+    assignment.completed = completestatus === "true";
+    res.json(assignment);
+  });
+
+  app.get("/a5/assignment/score/:score", (req, res) => {
+    const { score } = req.params;
+    assignment.score = parseInt(score);
+    res.json(assignment);
   });
 
   app.get("/a5/module", (req, res) => {
@@ -96,18 +123,6 @@ const Lab5 = (app) => {
     const { newDescription } = req.params;
     module.description = newDescription;
     res.json(module);
-  });
-
-  app.get("/a5/assignment/completed/:completestatus", (req, res) => {
-    const { completestatus } = req.params;
-    assignment.completed = completestatus === "true";
-    res.json(assignment);
-  });
-
-  app.get("/a5/assignment/score/:score", (req, res) => {
-    const { score } = req.params;
-    assignment.score = parseInt(score);
-    res.json(assignment);
   });
 
   app.get("/a5/todos", (req, res) => {
@@ -136,11 +151,11 @@ const Lab5 = (app) => {
   app.get("/a5/todos/create", (req, res) => {
     const newTodo = {
       id: new Date().getTime(),
-      title: "New Task" + taskCount,
+      title: "New Task" + newTaskCounter,
       completed: false,
     };
     todos.push(newTodo);
-    taskCount++;
+    newTaskCounter++;
     res.json(todos);
   });
 
@@ -159,8 +174,19 @@ const Lab5 = (app) => {
       return;
     }
     todos.splice(todos.indexOf(todo), 1);
+    // res.sendStatus(200);
     res.json(todos);
   });
+
+  // app.get("/a5/todos/:id/delete", (req, res) => {
+  //   const { id } = req.params;
+  //   const todo = todos.find((t) => t.id === parseInt(id));
+  //   const todoIndex = todos.indexOf(todo);
+  //   if (todoIndex !== -1) {
+  //     todos.splice(todoIndex, 1);
+  //   }
+  //   res.json(todos);
+  // });
 
   app.put("/a5/todos/:id", (req, res) => {
     const { id } = req.params;
@@ -197,6 +223,7 @@ const Lab5 = (app) => {
     todo.description = description;
     res.json(todos);
   });
-
+  
 };
+
 export default Lab5;

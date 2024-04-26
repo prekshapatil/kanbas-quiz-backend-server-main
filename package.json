@@ -3,40 +3,28 @@
   "name": "kanbas-node-server-app",
   "version": "1.0.0",
   "description": "Node.js HTTP Web server for the Kanbas application",
-  "main": "App.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node App.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/prekshapatil/kanbas-quiz-backend-server-main.git"
-  },
-  "keywords": [
-    "Node",
-    "REST",
-    "Server",
-    "HTTP",
-    "Web",
-    "Development",
-    "CS5610",
-    "CS4550"
-  ],
-  "author": "Preksha Patil",
+  "author": "ash-02",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/prekshapatil/kanbas-quiz-backend-server-main/issues"
-  },
-  "homepage": "https://github.com/prekshapatil/kanbas-quiz-backend-server-main#readme",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "mongoose": "^8.3.2"
-  },
-  "devDependencies": {
-    "@types/node": "^20.12.7"
+    "font-awesome": "^4.7.0",
+    "mongoose": "^8.3.0",
+    "nodemon": "^3.1.0",
+    "react": "^18.3.0",
+    "react-icons": "^5.1.0",
+    "react-router": "^6.23.0",
+    "react-router-dom": "^6.23.0",
+    "redux": "^5.0.1"
   }
 }
